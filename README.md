@@ -35,7 +35,7 @@ A React + Vite admin panel built with ShadCN-inspired components. It includes se
 - React 18 + Vite + TypeScript
 - React Router for routing
 - Tailwind CSS for styling
-- ShadCN-inspired UI primitives built on Radix + CVA
+- ShadCN-inspired UI primitives built with Tailwind + CVA (no Radix dependency)
 - React Hook Form + Zod for validation
 - React Quill for rich text editing
 
