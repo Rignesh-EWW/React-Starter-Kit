@@ -26,7 +26,7 @@
     --border: 214 32% 91%;
     --input: 214 32% 91%;
     --ring: 221 83% 53%;
-    --radius: 0.75rem;
+    --radius: 0.5rem;
     
     --chart-1: 221 83% 53%;
     --chart-2: 142 76% 36%;
@@ -90,61 +90,70 @@
   background: hsl(var(--muted-foreground) / 0.5);
 }
 
-/* Tiptap editor styles */
-.ProseMirror {
-  @apply min-h-[200px] outline-none;
+/* Prose styles for rich text editor */
+.prose {
+  @apply text-foreground max-w-none;
 }
 
-.ProseMirror p.is-editor-empty:first-child::before {
-  @apply text-muted-foreground pointer-events-none float-left h-0;
-  content: attr(data-placeholder);
-}
-
-.ProseMirror h1 {
+.prose h1 {
   @apply text-3xl font-bold mb-4 text-foreground;
 }
 
-.ProseMirror h2 {
+.prose h2 {
   @apply text-2xl font-bold mb-3 text-foreground;
 }
 
-.ProseMirror h3 {
+.prose h3 {
   @apply text-xl font-semibold mb-2 text-foreground;
 }
 
-.ProseMirror p {
+.prose p {
   @apply mb-3 text-foreground;
 }
 
-.ProseMirror ul {
+.prose ul {
   @apply list-disc ml-6 mb-3;
 }
 
-.ProseMirror ol {
+.prose ol {
   @apply list-decimal ml-6 mb-3;
 }
 
-.ProseMirror blockquote {
+.prose li {
+  @apply mb-1;
+}
+
+.prose blockquote {
   @apply border-l-4 border-primary pl-4 italic my-4;
 }
 
-.ProseMirror code {
+.prose code {
   @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
 }
 
-.ProseMirror pre {
+.prose pre {
   @apply bg-muted p-4 rounded-lg my-4 overflow-x-auto;
 }
 
-.ProseMirror pre code {
+.prose pre code {
   @apply bg-transparent p-0;
 }
 
-/* Prose styles for preview */
-.prose {
-  @apply text-foreground;
+/* Animation classes */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.prose h1, .prose h2, .prose h3 {
-  @apply text-foreground;
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s ease-out forwards;
 }
