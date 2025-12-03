@@ -59,7 +59,7 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start typing.
       size="icon"
       className={cn(
         "h-8 w-8",
-        isActive && "bg-muted text-foreground"
+        isActive && "bg-blue-100 text-blue-600"
       )}
       onClick={onClick}
       disabled={disabled}
@@ -69,9 +69,9 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start typing.
   )
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden bg-background">
+    <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-1 p-2 border-b border-border bg-muted/30">
+      <div className="flex flex-wrap items-center gap-1 p-2 border-b border-gray-200 bg-gray-50">
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBold().run()}
           isActive={editor.isActive('bold')}

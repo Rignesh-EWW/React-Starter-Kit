@@ -29,8 +29,9 @@ export function DashboardPage() {
       change: '+12%',
       trend: 'up',
       icon: Users,
-      color: 'from-emerald-500 to-teal-500',
-      shadowColor: 'shadow-emerald-500/20'
+      color: 'bg-blue-500',
+      lightColor: 'bg-blue-50',
+      textColor: 'text-blue-600'
     },
     {
       title: 'Active Users',
@@ -38,8 +39,9 @@ export function DashboardPage() {
       change: '+5%',
       trend: 'up',
       icon: UserCheck,
-      color: 'from-cyan-500 to-blue-500',
-      shadowColor: 'shadow-cyan-500/20'
+      color: 'bg-emerald-500',
+      lightColor: 'bg-emerald-50',
+      textColor: 'text-emerald-600'
     },
     {
       title: 'New This Month',
@@ -47,8 +49,9 @@ export function DashboardPage() {
       change: '-8%',
       trend: 'down',
       icon: UserPlus,
-      color: 'from-violet-500 to-purple-500',
-      shadowColor: 'shadow-violet-500/20'
+      color: 'bg-violet-500',
+      lightColor: 'bg-violet-50',
+      textColor: 'text-violet-600'
     },
     {
       title: 'System Health',
@@ -56,11 +59,12 @@ export function DashboardPage() {
       status: metrics.systemHealth,
       icon: Activity,
       color: metrics.systemHealth === 'healthy' 
-        ? 'from-emerald-500 to-green-500' 
+        ? 'bg-emerald-500' 
         : metrics.systemHealth === 'warning' 
-          ? 'from-amber-500 to-orange-500' 
-          : 'from-red-500 to-rose-500',
-      shadowColor: metrics.systemHealth === 'healthy' ? 'shadow-emerald-500/20' : 'shadow-amber-500/20'
+          ? 'bg-amber-500' 
+          : 'bg-red-500',
+      lightColor: metrics.systemHealth === 'healthy' ? 'bg-emerald-50' : 'bg-amber-50',
+      textColor: metrics.systemHealth === 'healthy' ? 'text-emerald-600' : 'text-amber-600'
     },
   ]
 
@@ -69,8 +73,8 @@ export function DashboardPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-display font-bold text-gradient">Dashboard</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-display font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-500 mt-1">
             Welcome back, {user?.name}! Here's what's happening today.
           </p>
         </div>
@@ -81,7 +85,7 @@ export function DashboardPage() {
               Settings
             </Link>
           </Button>
-          <Button asChild>
+          <Button asChild className="bg-blue-600 hover:bg-blue-700">
             <Link to="/users">
               <Users className="h-4 w-4 mr-2" />
               Manage Users
@@ -95,22 +99,18 @@ export function DashboardPage() {
         {stats.map((stat, index) => (
           <Card 
             key={stat.title} 
-            className="glass-card hover:scale-[1.02] transition-transform duration-300"
+            className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300"
             style={{ animationDelay: `${index * 100}ms` }}
           >
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
-                <div className={cn(
-                  "p-3 rounded-xl bg-gradient-to-br shadow-lg",
-                  stat.color,
-                  stat.shadowColor
-                )}>
-                  <stat.icon className="h-5 w-5 text-white" />
+                <div className={cn("p-3 rounded-xl", stat.lightColor)}>
+                  <stat.icon className={cn("h-5 w-5", stat.textColor)} />
                 </div>
                 {stat.trend && (
                   <div className={cn(
                     "flex items-center gap-1 text-sm font-medium",
-                    stat.trend === 'up' ? 'text-emerald-400' : 'text-red-400'
+                    stat.trend === 'up' ? 'text-emerald-600' : 'text-red-500'
                   )}>
                     {stat.trend === 'up' ? (
                       <ArrowUpRight className="h-4 w-4" />
@@ -129,8 +129,8 @@ export function DashboardPage() {
                 )}
               </div>
               <div className="mt-4">
-                <p className="text-3xl font-display font-bold">{stat.value}</p>
-                <p className="text-sm text-muted-foreground mt-1">{stat.title}</p>
+                <p className="text-3xl font-display font-bold text-gray-900">{stat.value}</p>
+                <p className="text-sm text-gray-500 mt-1">{stat.title}</p>
               </div>
             </CardContent>
           </Card>
@@ -139,14 +139,14 @@ export function DashboardPage() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Recent Activity */}
-        <Card className="glass-card">
+        <Card className="bg-white border border-gray-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="font-display">Recent Activity</CardTitle>
+                <CardTitle className="font-display text-gray-900">Recent Activity</CardTitle>
                 <CardDescription>Latest actions in the system</CardDescription>
               </div>
-              <Clock className="h-5 w-5 text-muted-foreground" />
+              <Clock className="h-5 w-5 text-gray-400" />
             </div>
           </CardHeader>
           <CardContent>
@@ -154,22 +154,22 @@ export function DashboardPage() {
               {recentActivity.slice(0, 5).map((activity, index) => (
                 <div 
                   key={activity.id} 
-                  className="flex items-start gap-4 p-3 rounded-lg hover:bg-muted/50 transition-colors animate-slide-in-left"
+                  className="flex items-start gap-4 p-3 rounded-lg hover:bg-gray-50 transition-colors animate-slide-in-left"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <div className={cn(
                     "p-2 rounded-lg",
-                    activity.type === 'user' && 'bg-emerald-500/10 text-emerald-400',
-                    activity.type === 'system' && 'bg-cyan-500/10 text-cyan-400',
-                    activity.type === 'settings' && 'bg-violet-500/10 text-violet-400'
+                    activity.type === 'user' && 'bg-blue-50 text-blue-600',
+                    activity.type === 'system' && 'bg-emerald-50 text-emerald-600',
+                    activity.type === 'settings' && 'bg-violet-50 text-violet-600'
                   )}>
                     {activity.type === 'user' && <Users className="h-4 w-4" />}
                     {activity.type === 'system' && <Activity className="h-4 w-4" />}
                     {activity.type === 'settings' && <Settings className="h-4 w-4" />}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">{activity.action}</p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm font-medium text-gray-900 truncate">{activity.action}</p>
+                    <p className="text-xs text-gray-500">
                       by {activity.user} · {activity.timestamp}
                     </p>
                   </div>
@@ -180,44 +180,44 @@ export function DashboardPage() {
         </Card>
 
         {/* Quick Stats / App Info */}
-        <Card className="glass-card">
+        <Card className="bg-white border border-gray-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="font-display">App Status</CardTitle>
+                <CardTitle className="font-display text-gray-900">App Status</CardTitle>
                 <CardDescription>Current app configuration</CardDescription>
               </div>
-              <Smartphone className="h-5 w-5 text-muted-foreground" />
+              <Smartphone className="h-5 w-5 text-gray-400" />
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl bg-muted/50 border border-border">
-                <p className="text-sm text-muted-foreground mb-1">Current Version</p>
-                <p className="text-xl font-display font-bold text-emerald-400">{appSettings.currentVersion}</p>
+              <div className="p-4 rounded-xl bg-blue-50 border border-blue-100">
+                <p className="text-sm text-gray-600 mb-1">Current Version</p>
+                <p className="text-xl font-display font-bold text-blue-600">{appSettings.currentVersion}</p>
               </div>
-              <div className="p-4 rounded-xl bg-muted/50 border border-border">
-                <p className="text-sm text-muted-foreground mb-1">Min Supported</p>
-                <p className="text-xl font-display font-bold">{appSettings.minSupportedVersion}</p>
+              <div className="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                <p className="text-sm text-gray-600 mb-1">Min Supported</p>
+                <p className="text-xl font-display font-bold text-gray-900">{appSettings.minSupportedVersion}</p>
               </div>
             </div>
 
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                <span className="text-sm font-medium">Force Update</span>
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 border border-gray-100">
+                <span className="text-sm font-medium text-gray-700">Force Update</span>
                 <Badge variant={appSettings.forceUpdate ? 'default' : 'secondary'}>
                   {appSettings.forceUpdate ? 'Enabled' : 'Disabled'}
                 </Badge>
               </div>
-              <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                <span className="text-sm font-medium">Maintenance Mode</span>
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 border border-gray-100">
+                <span className="text-sm font-medium text-gray-700">Maintenance Mode</span>
                 <Badge variant={appSettings.maintenanceMode ? 'warning' : 'success'}>
                   {appSettings.maintenanceMode ? 'Active' : 'Inactive'}
                 </Badge>
               </div>
-              <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                <span className="text-sm font-medium">Deprecated Versions</span>
-                <span className="text-sm text-muted-foreground">{appSettings.deprecatedVersions.length} versions</span>
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 border border-gray-100">
+                <span className="text-sm font-medium text-gray-700">Deprecated Versions</span>
+                <span className="text-sm text-gray-500">{appSettings.deprecatedVersions.length} versions</span>
               </div>
             </div>
 

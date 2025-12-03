@@ -40,10 +40,10 @@ export function UserViewPage() {
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
-        <User className="h-16 w-16 text-muted-foreground" />
-        <h2 className="text-xl font-semibold">User not found</h2>
-        <p className="text-muted-foreground">The user you're looking for doesn't exist.</p>
-        <Button asChild>
+        <User className="h-16 w-16 text-gray-400" />
+        <h2 className="text-xl font-semibold text-gray-900">User not found</h2>
+        <p className="text-gray-500">The user you're looking for doesn't exist.</p>
+        <Button asChild className="bg-blue-600 hover:bg-blue-700">
           <Link to="/users">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Users
@@ -66,15 +66,15 @@ export function UserViewPage() {
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'admin':
-        return 'from-violet-500 to-purple-500'
+        return 'bg-violet-500'
       case 'moderator':
-        return 'from-cyan-500 to-blue-500'
+        return 'bg-blue-500'
       default:
-        return 'from-emerald-500 to-teal-500'
+        return 'bg-emerald-500'
     }
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusVariant = (status: string) => {
     switch (status) {
       case 'active':
         return 'success'
@@ -97,30 +97,30 @@ export function UserViewPage() {
           </Link>
         </Button>
         <div>
-          <h1 className="text-3xl font-display font-bold">User Details</h1>
-          <p className="text-muted-foreground mt-1">View and manage user information</p>
+          <h1 className="text-3xl font-display font-bold text-gray-900">User Details</h1>
+          <p className="text-gray-500 mt-1">View and manage user information</p>
         </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Main Info Card */}
-        <Card className="glass-card lg:col-span-2">
+        <Card className="bg-white border border-gray-200 shadow-sm lg:col-span-2">
           <CardHeader>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-4">
                 <Avatar className={cn(
-                  "h-20 w-20 ring-4 ring-offset-2 ring-offset-background",
-                  user.status === 'active' ? 'ring-emerald-500/50' : 'ring-muted'
+                  "h-20 w-20 ring-4 ring-offset-2 ring-offset-white",
+                  user.status === 'active' ? 'ring-emerald-200' : 'ring-gray-200'
                 )}>
                   <AvatarFallback className={cn(
-                    "bg-gradient-to-br text-white text-2xl font-display font-bold",
+                    "text-white text-2xl font-display font-bold",
                     getRoleColor(user.role)
                   )}>
                     {user.name.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle className="text-2xl font-display">{user.name}</CardTitle>
+                  <CardTitle className="text-2xl font-display text-gray-900">{user.name}</CardTitle>
                   <CardDescription className="flex items-center gap-2 mt-1">
                     <Mail className="h-4 w-4" />
                     {user.email}
@@ -136,14 +136,14 @@ export function UserViewPage() {
                 </Button>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <Button variant="destructive" size="sm">
+                    <Button variant="destructive" size="sm" className="bg-red-600 hover:bg-red-700">
                       <Trash2 className="h-4 w-4 mr-2" />
                       Delete
                     </Button>
                   </AlertDialogTrigger>
-                  <AlertDialogContent>
+                  <AlertDialogContent className="bg-white">
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                      <AlertDialogTitle className="text-gray-900">Are you sure?</AlertDialogTitle>
                       <AlertDialogDescription>
                         This action cannot be undone. This will permanently delete {user.name}'s
                         account and remove their data from the system.
@@ -153,7 +153,7 @@ export function UserViewPage() {
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
                       <AlertDialogAction
                         onClick={handleDelete}
-                        className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        className="bg-red-600 text-white hover:bg-red-700"
                       >
                         Delete User
                       </AlertDialogAction>
@@ -169,16 +169,16 @@ export function UserViewPage() {
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground mb-1">Role</p>
+                  <p className="text-sm font-medium text-gray-500 mb-1">Role</p>
                   <div className="flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-primary" />
-                    <span className="capitalize font-medium">{user.role}</span>
+                    <Shield className="h-4 w-4 text-blue-600" />
+                    <span className="capitalize font-medium text-gray-900">{user.role}</span>
                   </div>
                 </div>
                 
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground mb-1">Status</p>
-                  <Badge variant={getStatusColor(user.status) as any} className="capitalize">
+                  <p className="text-sm font-medium text-gray-500 mb-1">Status</p>
+                  <Badge variant={getStatusVariant(user.status) as any} className="capitalize">
                     {user.status}
                   </Badge>
                 </div>
@@ -186,18 +186,18 @@ export function UserViewPage() {
 
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground mb-1">Account Created</p>
+                  <p className="text-sm font-medium text-gray-500 mb-1">Account Created</p>
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span>{user.createdAt}</span>
+                    <Calendar className="h-4 w-4 text-gray-400" />
+                    <span className="text-gray-900">{user.createdAt}</span>
                   </div>
                 </div>
                 
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground mb-1">Last Login</p>
+                  <p className="text-sm font-medium text-gray-500 mb-1">Last Login</p>
                   <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span>{user.lastLogin || 'Never'}</span>
+                    <Clock className="h-4 w-4 text-gray-400" />
+                    <span className="text-gray-900">{user.lastLogin || 'Never'}</span>
                   </div>
                 </div>
               </div>
@@ -206,9 +206,9 @@ export function UserViewPage() {
         </Card>
 
         {/* Quick Actions Card */}
-        <Card className="glass-card">
+        <Card className="bg-white border border-gray-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="font-display">Quick Actions</CardTitle>
+            <CardTitle className="font-display text-gray-900">Quick Actions</CardTitle>
             <CardDescription>Manage this user</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">

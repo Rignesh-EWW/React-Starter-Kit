@@ -21,12 +21,12 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-xl shadow-emerald-500/30 animate-pulse">
+          <div className="h-12 w-12 rounded-xl bg-blue-600 flex items-center justify-center shadow-xl animate-pulse">
             <span className="text-white font-bold text-xl font-display">A</span>
           </div>
-          <p className="text-muted-foreground animate-pulse">Loading...</p>
+          <p className="text-gray-500 animate-pulse">Loading...</p>
         </div>
       </div>
     )
@@ -45,12 +45,12 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-xl shadow-emerald-500/30 animate-pulse">
+          <div className="h-12 w-12 rounded-xl bg-blue-600 flex items-center justify-center shadow-xl animate-pulse">
             <span className="text-white font-bold text-xl font-display">A</span>
           </div>
-          <p className="text-muted-foreground animate-pulse">Loading...</p>
+          <p className="text-gray-500 animate-pulse">Loading...</p>
         </div>
       </div>
     )

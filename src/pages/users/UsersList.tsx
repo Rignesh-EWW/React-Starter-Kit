@@ -94,7 +94,7 @@ export function UsersListPage() {
     }
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusVariant = (status: string) => {
     switch (status) {
       case 'active':
         return 'success'
@@ -110,11 +110,11 @@ export function UsersListPage() {
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'admin':
-        return 'from-violet-500 to-purple-500'
+        return 'bg-violet-500'
       case 'moderator':
-        return 'from-cyan-500 to-blue-500'
+        return 'bg-blue-500'
       default:
-        return 'from-gray-500 to-gray-600'
+        return 'bg-gray-500'
     }
   }
 
@@ -123,12 +123,12 @@ export function UsersListPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-display font-bold text-gradient">User Management</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-display font-bold text-gray-900">User Management</h1>
+          <p className="text-gray-500 mt-1">
             Manage and monitor all users in your system
           </p>
         </div>
-        <Button asChild>
+        <Button asChild className="bg-blue-600 hover:bg-blue-700">
           <Link to="/users/create">
             <Plus className="h-4 w-4 mr-2" />
             Create User
@@ -136,12 +136,12 @@ export function UsersListPage() {
         </Button>
       </div>
 
-      <Card className="glass-card">
+      <Card className="bg-white border border-gray-200 shadow-sm">
         <CardHeader>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <CardTitle className="font-display flex items-center gap-2">
-                <Users className="h-5 w-5" />
+              <CardTitle className="font-display flex items-center gap-2 text-gray-900">
+                <Users className="h-5 w-5 text-blue-600" />
                 All Users
               </CardTitle>
               <CardDescription>
@@ -154,7 +154,7 @@ export function UsersListPage() {
           {/* Filters */}
           <div className="flex flex-col gap-4 sm:flex-row">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Search by name or email..."
                 value={search}
@@ -162,7 +162,7 @@ export function UsersListPage() {
                   setSearch(e.target.value)
                   setCurrentPage(1)
                 }}
-                className="pl-10"
+                className="pl-10 bg-gray-50 border-gray-200"
               />
             </div>
             <div className="flex gap-2">
@@ -170,7 +170,7 @@ export function UsersListPage() {
                 setRoleFilter(value)
                 setCurrentPage(1)
               }}>
-                <SelectTrigger className="w-[140px]">
+                <SelectTrigger className="w-[140px] bg-gray-50 border-gray-200">
                   <Filter className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="Role" />
                 </SelectTrigger>
@@ -185,7 +185,7 @@ export function UsersListPage() {
                 setStatusFilter(value)
                 setCurrentPage(1)
               }}>
-                <SelectTrigger className="w-[140px]">
+                <SelectTrigger className="w-[140px] bg-gray-50 border-gray-200">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -199,23 +199,23 @@ export function UsersListPage() {
           </div>
 
           {/* Table */}
-          <div className="rounded-lg border border-border overflow-hidden">
+          <div className="rounded-lg border border-gray-200 overflow-hidden">
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/50 hover:bg-muted/50">
-                  <TableHead>User</TableHead>
-                  <TableHead>Role</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="hidden md:table-cell">Created</TableHead>
-                  <TableHead className="hidden lg:table-cell">Last Login</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                <TableRow className="bg-gray-50 hover:bg-gray-50">
+                  <TableHead className="text-gray-700">User</TableHead>
+                  <TableHead className="text-gray-700">Role</TableHead>
+                  <TableHead className="text-gray-700">Status</TableHead>
+                  <TableHead className="hidden md:table-cell text-gray-700">Created</TableHead>
+                  <TableHead className="hidden lg:table-cell text-gray-700">Last Login</TableHead>
+                  <TableHead className="text-right text-gray-700">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {paginatedUsers.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={6} className="h-32 text-center">
-                      <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                      <div className="flex flex-col items-center gap-2 text-gray-500">
                         <Users className="h-8 w-8" />
                         <p>No users found</p>
                       </div>
@@ -230,34 +230,34 @@ export function UsersListPage() {
                     >
                       <TableCell>
                         <div className="flex items-center gap-3">
-                          <Avatar className="h-10 w-10 ring-2 ring-border group-hover:ring-primary/50 transition-all">
+                          <Avatar className="h-10 w-10 ring-2 ring-gray-100 group-hover:ring-blue-100 transition-all">
                             <AvatarFallback className={cn(
-                              "bg-gradient-to-br text-white font-semibold",
+                              "text-white font-semibold",
                               getRoleColor(user.role)
                             )}>
                               {user.name.charAt(0)}
                             </AvatarFallback>
                           </Avatar>
                           <div>
-                            <p className="font-medium">{user.name}</p>
-                            <p className="text-sm text-muted-foreground">{user.email}</p>
+                            <p className="font-medium text-gray-900">{user.name}</p>
+                            <p className="text-sm text-gray-500">{user.email}</p>
                           </div>
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className="capitalize">
+                        <Badge variant="outline" className="capitalize border-gray-300">
                           {user.role}
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <Badge variant={getStatusColor(user.status) as any} className="capitalize">
+                        <Badge variant={getStatusVariant(user.status) as any} className="capitalize">
                           {user.status}
                         </Badge>
                       </TableCell>
-                      <TableCell className="hidden md:table-cell text-muted-foreground">
+                      <TableCell className="hidden md:table-cell text-gray-500">
                         {user.createdAt}
                       </TableCell>
-                      <TableCell className="hidden lg:table-cell text-muted-foreground">
+                      <TableCell className="hidden lg:table-cell text-gray-500">
                         {user.lastLogin || 'Never'}
                       </TableCell>
                       <TableCell className="text-right">
@@ -278,7 +278,7 @@ export function UsersListPage() {
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem 
-                              className="text-destructive focus:text-destructive"
+                              className="text-red-600 focus:text-red-600"
                               onClick={() => setUserToDelete(user.id)}
                             >
                               <Trash2 className="h-4 w-4 mr-2" />
@@ -297,7 +297,7 @@ export function UsersListPage() {
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex items-center justify-between pt-4">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-500">
                 Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filteredUsers.length)} of {filteredUsers.length} users
               </p>
               <div className="flex items-center gap-2">
@@ -315,7 +315,7 @@ export function UsersListPage() {
                       key={page}
                       variant={currentPage === page ? 'default' : 'ghost'}
                       size="icon"
-                      className="h-8 w-8"
+                      className={cn("h-8 w-8", currentPage === page && "bg-blue-600 hover:bg-blue-700")}
                       onClick={() => setCurrentPage(page)}
                     >
                       {page}
@@ -338,9 +338,9 @@ export function UsersListPage() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={!!userToDelete} onOpenChange={() => setUserToDelete(null)}>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-white">
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogTitle className="text-gray-900">Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete the user
               and remove their data from the system.
@@ -350,7 +350,7 @@ export function UsersListPage() {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="bg-red-600 text-white hover:bg-red-700"
             >
               Delete User
             </AlertDialogAction>

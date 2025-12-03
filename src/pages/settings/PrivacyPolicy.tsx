@@ -36,16 +36,16 @@ export function PrivacyPolicyPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-display font-bold text-gradient">Privacy Policy</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-display font-bold text-gray-900">Privacy Policy</h1>
+          <p className="text-gray-500 mt-1">
             Manage your application's privacy policy
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-500">
             Last updated: {policies.lastUpdated}
           </p>
-          <Button onClick={handleSave} disabled={isSaving}>
+          <Button onClick={handleSave} disabled={isSaving} className="bg-blue-600 hover:bg-blue-700">
             {isSaving ? (
               <>
                 <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -61,12 +61,12 @@ export function PrivacyPolicyPage() {
         </div>
       </div>
 
-      <Card className="glass-card">
+      <Card className="bg-white border border-gray-200 shadow-sm">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-primary" />
+            <Shield className="h-5 w-5 text-blue-600" />
             <div>
-              <CardTitle className="font-display">Privacy Policy Editor</CardTitle>
+              <CardTitle className="font-display text-gray-900">Privacy Policy Editor</CardTitle>
               <CardDescription>
                 Use the rich text editor to format your privacy policy
               </CardDescription>
@@ -75,7 +75,7 @@ export function PrivacyPolicyPage() {
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="mb-4">
+            <TabsList className="mb-4 bg-gray-100">
               <TabsTrigger value="edit">Edit</TabsTrigger>
               <TabsTrigger value="preview">
                 <Eye className="h-4 w-4 mr-2" />
@@ -93,7 +93,7 @@ export function PrivacyPolicyPage() {
             
             <TabsContent value="preview">
               <div 
-                className="prose prose-invert max-w-none p-6 rounded-lg border border-border bg-muted/20"
+                className="prose max-w-none p-6 rounded-lg border border-gray-200 bg-gray-50"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
             </TabsContent>

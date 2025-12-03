@@ -60,10 +60,10 @@ export function UserEditPage() {
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
-        <User className="h-16 w-16 text-muted-foreground" />
-        <h2 className="text-xl font-semibold">User not found</h2>
-        <p className="text-muted-foreground">The user you're looking for doesn't exist.</p>
-        <Button asChild>
+        <User className="h-16 w-16 text-gray-400" />
+        <h2 className="text-xl font-semibold text-gray-900">User not found</h2>
+        <p className="text-gray-500">The user you're looking for doesn't exist.</p>
+        <Button asChild className="bg-blue-600 hover:bg-blue-700">
           <Link to="/users">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Users
@@ -100,16 +100,16 @@ export function UserEditPage() {
           </Link>
         </Button>
         <div>
-          <h1 className="text-3xl font-display font-bold">Edit User</h1>
-          <p className="text-muted-foreground mt-1">Update {user.name}'s information</p>
+          <h1 className="text-3xl font-display font-bold text-gray-900">Edit User</h1>
+          <p className="text-gray-500 mt-1">Update {user.name}'s information</p>
         </div>
       </div>
 
       <div className="max-w-2xl">
-        <Card className="glass-card">
+        <Card className="bg-white border border-gray-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="font-display flex items-center gap-2">
-              <User className="h-5 w-5" />
+            <CardTitle className="font-display flex items-center gap-2 text-gray-900">
+              <User className="h-5 w-5 text-blue-600" />
               User Details
             </CardTitle>
             <CardDescription>
@@ -119,38 +119,40 @@ export function UserEditPage() {
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name" className="text-gray-700">Full Name</Label>
                 <Input
                   id="name"
                   placeholder="Enter user's full name"
+                  className="bg-gray-50 border-gray-200"
                   {...register('name')}
                 />
                 {errors.name && (
-                  <p className="text-sm text-destructive">{errors.name.message}</p>
+                  <p className="text-sm text-red-500">{errors.name.message}</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email" className="text-gray-700">Email Address</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="Enter user's email address"
+                  className="bg-gray-50 border-gray-200"
                   {...register('email')}
                 />
                 {errors.email && (
-                  <p className="text-sm text-destructive">{errors.email.message}</p>
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
                 )}
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="role">Role</Label>
+                  <Label htmlFor="role" className="text-gray-700">Role</Label>
                   <Select 
                     defaultValue={user.role}
                     onValueChange={(value) => setValue('role', value as 'admin' | 'user' | 'moderator')}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-gray-50 border-gray-200">
                       <SelectValue placeholder="Select a role" />
                     </SelectTrigger>
                     <SelectContent>
@@ -160,17 +162,17 @@ export function UserEditPage() {
                     </SelectContent>
                   </Select>
                   {errors.role && (
-                    <p className="text-sm text-destructive">{errors.role.message}</p>
+                    <p className="text-sm text-red-500">{errors.role.message}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="status">Status</Label>
+                  <Label htmlFor="status" className="text-gray-700">Status</Label>
                   <Select 
                     defaultValue={user.status}
                     onValueChange={(value) => setValue('status', value as 'active' | 'inactive' | 'suspended')}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-gray-50 border-gray-200">
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -180,7 +182,7 @@ export function UserEditPage() {
                     </SelectContent>
                   </Select>
                   {errors.status && (
-                    <p className="text-sm text-destructive">{errors.status.message}</p>
+                    <p className="text-sm text-red-500">{errors.status.message}</p>
                   )}
                 </div>
               </div>
@@ -189,7 +191,7 @@ export function UserEditPage() {
                 <Button type="button" variant="outline" asChild className="flex-1">
                   <Link to={`/users/${user.id}`}>Cancel</Link>
                 </Button>
-                <Button type="submit" className="flex-1" disabled={isSubmitting}>
+                <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />

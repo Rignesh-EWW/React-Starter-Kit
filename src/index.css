@@ -7,41 +7,41 @@
 
 @layer base {
   :root {
-    --background: 0 0% 3%;
-    --foreground: 60 9% 98%;
-    --card: 0 0% 5%;
-    --card-foreground: 60 9% 98%;
-    --popover: 0 0% 6%;
-    --popover-foreground: 60 9% 98%;
-    --primary: 142 76% 36%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 60 9% 98%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 64%;
-    --accent: 0 0% 14%;
-    --accent-foreground: 60 9% 98%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 60 9% 98%;
-    --border: 0 0% 14%;
-    --input: 0 0% 14%;
-    --ring: 142 76% 36%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
     --radius: 0.75rem;
     
-    --chart-1: 142 76% 36%;
-    --chart-2: 173 80% 40%;
-    --chart-3: 197 71% 52%;
+    --chart-1: 221 83% 53%;
+    --chart-2: 142 76% 36%;
+    --chart-3: 262 83% 58%;
     --chart-4: 43 96% 56%;
-    --chart-5: 27 96% 61%;
+    --chart-5: 0 84% 60%;
     
-    --sidebar-background: 0 0% 4%;
-    --sidebar-foreground: 0 0% 64%;
-    --sidebar-primary: 142 76% 36%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 215 16% 47%;
+    --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 60 9% 98%;
-    --sidebar-border: 0 0% 14%;
-    --sidebar-ring: 142 76% 36%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 221 83% 53%;
   }
 }
 
@@ -59,15 +59,15 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent;
   }
   
   .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    @apply bg-white/80 backdrop-blur-xl border border-gray-200;
   }
   
   .glass-card {
-    @apply bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 shadow-2xl;
+    @apply bg-white border border-gray-200 shadow-sm;
   }
 }
 
@@ -82,12 +82,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
+  background: hsl(var(--muted-foreground) / 0.3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground));
+  background: hsl(var(--muted-foreground) / 0.5);
 }
 
 /* Tiptap editor styles */
@@ -101,19 +101,19 @@
 }
 
 .ProseMirror h1 {
-  @apply text-3xl font-bold mb-4;
+  @apply text-3xl font-bold mb-4 text-foreground;
 }
 
 .ProseMirror h2 {
-  @apply text-2xl font-bold mb-3;
+  @apply text-2xl font-bold mb-3 text-foreground;
 }
 
 .ProseMirror h3 {
-  @apply text-xl font-semibold mb-2;
+  @apply text-xl font-semibold mb-2 text-foreground;
 }
 
 .ProseMirror p {
-  @apply mb-3;
+  @apply mb-3 text-foreground;
 }
 
 .ProseMirror ul {
@@ -138,4 +138,13 @@
 
 .ProseMirror pre code {
   @apply bg-transparent p-0;
+}
+
+/* Prose styles for preview */
+.prose {
+  @apply text-foreground;
+}
+
+.prose h1, .prose h2, .prose h3 {
+  @apply text-foreground;
 }

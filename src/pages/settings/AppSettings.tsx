@@ -76,12 +76,12 @@ export function AppSettingsPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-display font-bold text-gradient">App Settings</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-display font-bold text-gray-900">App Settings</h1>
+          <p className="text-gray-500 mt-1">
             Manage app versioning, updates, and feature toggles
           </p>
         </div>
-        <Button onClick={handleSave} disabled={isSaving}>
+        <Button onClick={handleSave} disabled={isSaving} className="bg-blue-600 hover:bg-blue-700">
           {isSaving ? (
             <>
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -98,12 +98,12 @@ export function AppSettingsPage() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Version Control */}
-        <Card className="glass-card">
+        <Card className="bg-white border border-gray-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <Smartphone className="h-5 w-5 text-primary" />
+              <Smartphone className="h-5 w-5 text-blue-600" />
               <div>
-                <CardTitle className="font-display">Version Control</CardTitle>
+                <CardTitle className="font-display text-gray-900">Version Control</CardTitle>
                 <CardDescription>
                   Manage app versions and updates
                 </CardDescription>
@@ -113,21 +113,23 @@ export function AppSettingsPage() {
           <CardContent className="space-y-6">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="currentVersion">Current Version</Label>
+                <Label htmlFor="currentVersion" className="text-gray-700">Current Version</Label>
                 <Input
                   id="currentVersion"
                   value={settings.currentVersion}
                   onChange={(e) => setSettings({ ...settings, currentVersion: e.target.value })}
                   placeholder="e.g., 2.5.0"
+                  className="bg-gray-50 border-gray-200"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="minVersion">Minimum Supported Version</Label>
+                <Label htmlFor="minVersion" className="text-gray-700">Minimum Supported Version</Label>
                 <Input
                   id="minVersion"
                   value={settings.minSupportedVersion}
                   onChange={(e) => setSettings({ ...settings, minSupportedVersion: e.target.value })}
                   placeholder="e.g., 2.0.0"
+                  className="bg-gray-50 border-gray-200"
                 />
               </div>
             </div>
@@ -135,8 +137,8 @@ export function AppSettingsPage() {
             <Separator />
 
             <div className="space-y-4">
-              <Label>Deprecated Versions</Label>
-              <p className="text-sm text-muted-foreground">
+              <Label className="text-gray-700">Deprecated Versions</Label>
+              <p className="text-sm text-gray-500">
                 Users on these versions will see a deprecation warning
               </p>
               
@@ -146,6 +148,7 @@ export function AppSettingsPage() {
                   onChange={(e) => setNewVersion(e.target.value)}
                   placeholder="Enter version (e.g., 1.5.0)"
                   onKeyDown={(e) => e.key === 'Enter' && handleAddDeprecatedVersion()}
+                  className="bg-gray-50 border-gray-200"
                 />
                 <Button variant="outline" onClick={handleAddDeprecatedVersion}>
                   <Plus className="h-4 w-4" />
@@ -163,7 +166,7 @@ export function AppSettingsPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-5 w-5 hover:bg-destructive/20 hover:text-destructive"
+                      className="h-5 w-5 hover:bg-red-100 hover:text-red-600"
                       onClick={() => handleRemoveDeprecatedVersion(version)}
                     >
                       <Trash2 className="h-3 w-3" />
@@ -171,7 +174,7 @@ export function AppSettingsPage() {
                   </Badge>
                 ))}
                 {settings.deprecatedVersions.length === 0 && (
-                  <p className="text-sm text-muted-foreground italic">No deprecated versions</p>
+                  <p className="text-sm text-gray-400 italic">No deprecated versions</p>
                 )}
               </div>
             </div>
@@ -179,12 +182,12 @@ export function AppSettingsPage() {
         </Card>
 
         {/* Force Update & Maintenance */}
-        <Card className="glass-card">
+        <Card className="bg-white border border-gray-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <Download className="h-5 w-5 text-primary" />
+              <Download className="h-5 w-5 text-blue-600" />
               <div>
-                <CardTitle className="font-display">Update Settings</CardTitle>
+                <CardTitle className="font-display text-gray-900">Update Settings</CardTitle>
                 <CardDescription>
                   Control app update behavior
                 </CardDescription>
@@ -194,18 +197,18 @@ export function AppSettingsPage() {
           <CardContent className="space-y-6">
             <div className={cn(
               "flex items-center justify-between p-4 rounded-lg border",
-              settings.forceUpdate ? "border-primary bg-primary/5" : "border-border"
+              settings.forceUpdate ? "border-blue-200 bg-blue-50" : "border-gray-200 bg-gray-50"
             )}>
               <div className="flex items-center gap-3">
                 <div className={cn(
                   "p-2 rounded-lg",
-                  settings.forceUpdate ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
+                  settings.forceUpdate ? "bg-blue-100 text-blue-600" : "bg-gray-200 text-gray-500"
                 )}>
                   <Download className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="font-medium">Force Update</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="font-medium text-gray-900">Force Update</p>
+                  <p className="text-sm text-gray-500">
                     Require users to update to the latest version
                   </p>
                 </div>
@@ -218,18 +221,18 @@ export function AppSettingsPage() {
 
             <div className={cn(
               "flex items-center justify-between p-4 rounded-lg border",
-              settings.maintenanceMode ? "border-amber-500 bg-amber-500/5" : "border-border"
+              settings.maintenanceMode ? "border-amber-200 bg-amber-50" : "border-gray-200 bg-gray-50"
             )}>
               <div className="flex items-center gap-3">
                 <div className={cn(
                   "p-2 rounded-lg",
-                  settings.maintenanceMode ? "bg-amber-500/10 text-amber-400" : "bg-muted text-muted-foreground"
+                  settings.maintenanceMode ? "bg-amber-100 text-amber-600" : "bg-gray-200 text-gray-500"
                 )}>
                   <AlertTriangle className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="font-medium">Maintenance Mode</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="font-medium text-gray-900">Maintenance Mode</p>
+                  <p className="text-sm text-gray-500">
                     Temporarily disable app access for all users
                   </p>
                 </div>
@@ -241,12 +244,12 @@ export function AppSettingsPage() {
             </div>
 
             {settings.maintenanceMode && (
-              <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30 animate-fade-in">
+              <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 animate-fade-in">
                 <div className="flex items-start gap-3">
-                  <AlertTriangle className="h-5 w-5 text-amber-400 mt-0.5" />
+                  <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5" />
                   <div>
-                    <p className="font-medium text-amber-400">Maintenance Mode Active</p>
-                    <p className="text-sm text-amber-400/80 mt-1">
+                    <p className="font-medium text-amber-700">Maintenance Mode Active</p>
+                    <p className="text-sm text-amber-600 mt-1">
                       Users will see a maintenance message when they try to access the app.
                     </p>
                   </div>
@@ -257,12 +260,12 @@ export function AppSettingsPage() {
         </Card>
 
         {/* Feature Toggles */}
-        <Card className="glass-card lg:col-span-2">
+        <Card className="bg-white border border-gray-200 shadow-sm lg:col-span-2">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <ToggleLeft className="h-5 w-5 text-primary" />
+              <ToggleLeft className="h-5 w-5 text-blue-600" />
               <div>
-                <CardTitle className="font-display">Feature Toggles</CardTitle>
+                <CardTitle className="font-display text-gray-900">Feature Toggles</CardTitle>
                 <CardDescription>
                   Enable or disable specific features in your application
                 </CardDescription>
@@ -276,14 +279,14 @@ export function AppSettingsPage() {
                   key={feature}
                   className={cn(
                     "flex items-center justify-between p-4 rounded-lg border transition-all",
-                    enabled ? "border-primary/50 bg-primary/5" : "border-border bg-muted/20"
+                    enabled ? "border-blue-200 bg-blue-50" : "border-gray-200 bg-gray-50"
                   )}
                 >
                   <div>
-                    <p className="font-medium capitalize">
+                    <p className="font-medium capitalize text-gray-900">
                       {feature.replace(/([A-Z])/g, ' $1').trim()}
                     </p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
+                    <p className="text-xs text-gray-500 mt-0.5">
                       {enabled ? 'Enabled' : 'Disabled'}
                     </p>
                   </div>
