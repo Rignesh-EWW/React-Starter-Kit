@@ -6,7 +6,7 @@ export default function AppLayout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-muted/20">
+    <div className="min-h-screen bg-white">
       <div className="flex">
         <Sidebar currentPath={location.pathname} />
         <div className="flex-1">
