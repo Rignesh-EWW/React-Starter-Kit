@@ -26,13 +26,17 @@ const settingsNavigation = [
   { name: 'App Settings', href: '/settings/app', icon: Smartphone },
 ]
 
-export function Sidebar() {
-  const location = useLocation()
-  const { user, logout } = useAuth()
-  const [collapsed, setCollapsed] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
+interface SidebarContentProps {
+  collapsed: boolean
+  setCollapsed: (value: boolean) => void
+  setMobileOpen: (value: boolean) => void
+  user: { name?: string; email?: string } | null
+  logout: () => void
+  pathname: string
+}
 
-  const SidebarContent = () => (
+function SidebarContent({ collapsed, setCollapsed, setMobileOpen, user, logout, pathname }: SidebarContentProps) {
+  return (
     <>
       {/* Logo */}
       <div className="flex items-center justify-between px-4 h-16 border-b border-gray-200">
@@ -61,7 +65,7 @@ export function Sidebar() {
         </div>
         
         {navigation.map((item) => {
-          const isActive = location.pathname === item.href || location.pathname.startsWith(item.href + '/')
+          const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
           return (
             <NavLink
               key={item.name}
@@ -87,7 +91,7 @@ export function Sidebar() {
           </div>
           
           {settingsNavigation.map((item) => {
-            const isActive = location.pathname === item.href
+            const isActive = pathname === item.href
             return (
               <NavLink
                 key={item.name}
@@ -138,6 +142,13 @@ export function Sidebar() {
       </div>
     </>
   )
+}
+
+export function Sidebar() {
+  const location = useLocation()
+  const { user, logout } = useAuth()
+  const [collapsed, setCollapsed] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
     <>
@@ -164,7 +175,14 @@ export function Sidebar() {
         "fixed inset-y-0 left-0 z-50 w-72 bg-white flex flex-col border-r border-gray-200 transition-transform duration-300 lg:hidden",
         mobileOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <SidebarContent />
+        <SidebarContent 
+          collapsed={false}
+          setCollapsed={setCollapsed}
+          setMobileOpen={setMobileOpen}
+          user={user}
+          logout={logout}
+          pathname={location.pathname}
+        />
       </aside>
 
       {/* Desktop sidebar */}
@@ -172,7 +190,14 @@ export function Sidebar() {
         "hidden lg:flex fixed inset-y-0 left-0 z-40 flex-col bg-white border-r border-gray-200 transition-all duration-300",
         collapsed ? "w-[72px]" : "w-72"
       )}>
-        <SidebarContent />
+        <SidebarContent 
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+          setMobileOpen={setMobileOpen}
+          user={user}
+          logout={logout}
+          pathname={location.pathname}
+        />
       </aside>
     </>
   )

@@ -24,6 +24,36 @@ interface RichTextEditorProps {
   placeholder?: string
 }
 
+interface ToolbarButtonProps {
+  onClick: () => void
+  isActive?: boolean
+  children: React.ReactNode
+  disabled?: boolean
+}
+
+function ToolbarButton({ 
+  onClick, 
+  isActive = false, 
+  children,
+  disabled = false 
+}: ToolbarButtonProps) {
+  return (
+    <Button
+      type="button"
+      variant="ghost"
+      size="icon"
+      className={cn(
+        "h-8 w-8",
+        isActive && "bg-blue-100 text-blue-600"
+      )}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </Button>
+  )
+}
+
 export function RichTextEditor({ content, onChange, placeholder = 'Start typing...' }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
@@ -41,32 +71,6 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start typing.
   if (!editor) {
     return null
   }
-
-  const ToolbarButton = ({ 
-    onClick, 
-    isActive = false, 
-    children,
-    disabled = false 
-  }: { 
-    onClick: () => void
-    isActive?: boolean
-    children: React.ReactNode
-    disabled?: boolean
-  }) => (
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon"
-      className={cn(
-        "h-8 w-8",
-        isActive && "bg-blue-100 text-blue-600"
-      )}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
-    </Button>
-  )
 
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">

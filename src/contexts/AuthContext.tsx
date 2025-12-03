@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react'
+import React, { createContext, useContext, useState, useCallback } from 'react'
 
 interface AuthUser {
   id: string
@@ -23,18 +23,22 @@ const ADMIN_CREDENTIALS = {
   password: 'admin123'
 }
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    // Check for existing session
+// Get initial user from localStorage
+function getInitialUser(): AuthUser | null {
+  try {
     const storedUser = localStorage.getItem('admin_user')
     if (storedUser) {
-      setUser(JSON.parse(storedUser))
+      return JSON.parse(storedUser)
     }
-    setIsLoading(false)
-  }, [])
+  } catch {
+    // Ignore parse errors
+  }
+  return null
+}
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<AuthUser | null>(getInitialUser)
+  const [isLoading, setIsLoading] = useState(false)
 
   const login = useCallback(async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true)

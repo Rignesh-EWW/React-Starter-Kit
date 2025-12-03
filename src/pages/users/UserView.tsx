@@ -74,7 +74,7 @@ export function UserViewPage() {
     }
   }
 
-  const getStatusVariant = (status: string) => {
+  const getStatusVariant = (status: string): "success" | "secondary" | "destructive" => {
     switch (status) {
       case 'active':
         return 'success'
@@ -178,7 +178,7 @@ export function UserViewPage() {
                 
                 <div>
                   <p className="text-sm font-medium text-gray-500 mb-1">Status</p>
-                  <Badge variant={getStatusVariant(user.status) as any} className="capitalize">
+                  <Badge variant={getStatusVariant(user.status)} className="capitalize">
                     {user.status}
                   </Badge>
                 </div>

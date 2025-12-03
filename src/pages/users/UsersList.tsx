@@ -94,7 +94,7 @@ export function UsersListPage() {
     }
   }
 
-  const getStatusVariant = (status: string) => {
+  const getStatusVariant = (status: string): "success" | "secondary" | "destructive" => {
     switch (status) {
       case 'active':
         return 'success'
@@ -250,7 +250,7 @@ export function UsersListPage() {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <Badge variant={getStatusVariant(user.status) as any} className="capitalize">
+                        <Badge variant={getStatusVariant(user.status)} className="capitalize">
                           {user.status}
                         </Badge>
                       </TableCell>

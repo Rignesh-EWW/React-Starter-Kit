@@ -99,7 +99,6 @@ interface DataContextType {
   
   // Activity
   recentActivity: ActivityItem[]
-  addActivity: (activity: Omit<ActivityItem, 'id'>) => void
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined)
@@ -109,6 +108,14 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [appSettings, setAppSettings] = useState<AppSettings>(initialSettings)
   const [policies, setPolicies] = useState<PolicyContent>(initialPolicies)
   const [recentActivity, setRecentActivity] = useState<ActivityItem[]>(initialActivity)
+
+  const addActivity = useCallback((activity: Omit<ActivityItem, 'id'>) => {
+    const newActivity: ActivityItem = {
+      ...activity,
+      id: Date.now().toString()
+    }
+    setRecentActivity(prev => [newActivity, ...prev.slice(0, 9)])
+  }, [])
 
   const getUser = useCallback((id: string) => {
     return users.find(u => u.id === id)
@@ -127,7 +134,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       timestamp: 'Just now',
       type: 'user'
     })
-  }, [])
+  }, [addActivity])
 
   const updateUser = useCallback((id: string, userData: Partial<User>) => {
     setUsers(prev => prev.map(u => u.id === id ? { ...u, ...userData } : u))
@@ -137,7 +144,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       timestamp: 'Just now',
       type: 'user'
     })
-  }, [])
+  }, [addActivity])
 
   const deleteUser = useCallback((id: string) => {
     const userToDelete = users.find(u => u.id === id)
@@ -148,7 +155,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       timestamp: 'Just now',
       type: 'user'
     })
-  }, [users])
+  }, [users, addActivity])
 
   const updateAppSettings = useCallback((settings: Partial<AppSettings>) => {
     setAppSettings(prev => ({ ...prev, ...settings }))
@@ -158,7 +165,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       timestamp: 'Just now',
       type: 'settings'
     })
-  }, [])
+  }, [addActivity])
 
   const updatePolicies = useCallback((newPolicies: Partial<PolicyContent>) => {
     setPolicies(prev => ({ 
@@ -172,15 +179,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       timestamp: 'Just now',
       type: 'settings'
     })
-  }, [])
-
-  const addActivity = useCallback((activity: Omit<ActivityItem, 'id'>) => {
-    const newActivity: ActivityItem = {
-      ...activity,
-      id: Date.now().toString()
-    }
-    setRecentActivity(prev => [newActivity, ...prev.slice(0, 9)])
-  }, [])
+  }, [addActivity])
 
   const metrics: DashboardMetrics = {
     totalUsers: users.length,
@@ -207,7 +206,6 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       updatePolicies,
       metrics,
       recentActivity,
-      addActivity
     }}>
       {children}
     </DataContext.Provider>
